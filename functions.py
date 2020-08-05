@@ -6,13 +6,15 @@ counting notebook.
 import matplotlib.pyplot as plt
 import numpy as np
 from skimage import exposure, feature, filters, io, morphology
-from ipywidgets import widgets, interactive, fixed
+from ipywidgets import widgets, interactive, fixed, interact_manual
 from math import sqrt
 from collections import Counter
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
-def load_and_get_name_of_image(path,
+DUMMY_FILE = 'Drd2_Adult_S_conf_25X_CPU1_cryo_NAV.jpg'
+
+def load_and_get_name_of_image(name=DUMMY_FILE,
                                channel=1,
                                cmap='jet',
                                show_image=True
@@ -21,21 +23,17 @@ def load_and_get_name_of_image(path,
     Loads an image, strips out the desired channel,
     and optionally displays the image.
     
-    Returns image and its file name stem for later
+    Returns image and its filename for later
     use.
     """
     
-    if not path:
-        path = 'Drd2_Adult_S_conf_25X_CPU1_cryo_NAV.jpg'
-    
-    stem = path.split('.')[0]
-    rawpic = io.imread(path)
+    rawpic = io.imread(name)
     img = rawpic[:,:, channel]
     
     if show_image:
         io.imshow(img, cmap=cmap)
     
-    return img, stem
+    return img, name
 
 
 def adjust_image(image,
@@ -58,7 +56,7 @@ def adjust_image(image,
     """
     
     p2, p98 = np.percentile(image, (lower_thresh, upper_thresh))
-    img_rescale = exposure.rescale_intensity(img, in_range=(p2, p98))
+    img_rescale = exposure.rescale_intensity(image, in_range=(p2, p98))
     selem = morphology.disk(filter_size)
     wht_tophat = morphology.white_tophat(img_rescale,selem=selem)
     io.imshow(img_rescale - wht_tophat, cmap=cmap)
@@ -84,7 +82,7 @@ def detect_blobs(original_image,
     """
     
     blobs_dog = feature.blob_dog(processed_image,
-                                 max_sigma=sigma,
+                                 max_sigma=max_sigma,
                                  threshold=threshold
                                 )
     blobs_dog[:, 2] = blobs_dog[:, 2] * sqrt(2) #radius calcs
@@ -110,7 +108,7 @@ def detect_blobs(original_image,
     
     return blobs_dog
 
-def save_for_imagej(coords, filestem):
+def save_for_imagej(coords, name):
     """
     Dumps out the blob coordinates as an XML file suitable for
     use in the ImageJ cell counter plugin. If the file name isn't
@@ -141,7 +139,7 @@ def save_for_imagej(coords, filestem):
     root = ET.Element("CellCounter_Marker_File")
     imgprops = ET.SubElement(root, "Image_Properties")
     imgfname = ET.SubElement(imgprops, "Image_Filename")
-    imgfname.text = filestem
+    imgfname.text = name
     markerdata = ET.SubElement(root, "Marker_Data")
     curtype = ET.SubElement(markerdata, "Current_Type")
     curtype.text = '0'
@@ -158,6 +156,8 @@ def save_for_imagej(coords, filestem):
                 marky.text = str(int(y))
                 markz = ET.SubElement(mark, "MarkerZ")
                 markz.text = str(int(1))
-
-    with open('{}.xml'.format(filestem, 'w') as f:
+    
+    filestem = name.split('.')[0]
+    with open('{}.xml'.format(filestem), 'w') as f:
         f.write(prettify(root))
+    print("File saved: {}.xml".format(filestem))
