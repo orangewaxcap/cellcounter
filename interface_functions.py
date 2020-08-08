@@ -14,37 +14,6 @@ from xml.dom import minidom
 from IPython.display import display
 
 
-def _upload():
-
-    upload_widget = fileupload.FileUploadWidget()
-
-    def _cb(change):
-        decoded = io.StringIO(change['owner'].data.decode('utf-8'))
-        filename = change['owner'].filename
-        print('Uploaded `{}` ({:.2f} kB)'.format(
-            filename, len(decoded.read()) / 2 **10))
-
-    upload_widget.observe(_cb, names='data')
-    display(upload_widget)
-
-def upload():
-    upload_widget = widgets.FileUpload(multiple=False)
-    display(upload_widget)
-    try:
-        print('hi')
-        filename = [name for name in upload_widget.value.keys()][0]
-        image = io.imread(upload_widget.value['filename']['content'], plugin='imageio')
-        channels = [i+1 for i in range(image.shape()[-1])]
-        print("Image uploaded")
-    except IndexError:
-        channels = None
-        print("No image found.")
-    return upload_widget, channels
-
-def on_file_change(change):
-    print(change)
-    
-    
 """
 OLD FUNCTIONS BELOW
 """
