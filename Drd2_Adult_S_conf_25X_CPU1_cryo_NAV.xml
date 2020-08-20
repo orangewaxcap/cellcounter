@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CellCounter_Marker_File>
-  <Image_Properties>
-    <Image_Filename>Drd2_Adult_S_conf_25X_CPU1_cryo_NAV.jpg</Image_Filename>
-  </Image_Properties>
+ <Image_Properties>
+   <Image_Filename>Drd2_Adult_S_conf_25X_CPU1_cryo_NAV.jpg</Image_Filename>
+ </Image_Properties>
   <Marker_Data>
     <Current_Type>0</Current_Type>
     <Marker_Type>
