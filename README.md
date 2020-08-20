@@ -19,4 +19,4 @@ Bright blobs that could be cells are marked with red circles. Note that the cent
 8. Click the prep file for download button.
 9. Click the download ImageJ file button.
 
-The test image is sourced from [http://www.gensat.org/imagenavigator.jsp?imageID=50657].
+A test image and an example output file are available in this repo. The test image is sourced from http://www.gensat.org/imagenavigator.jsp?imageID=50657.
