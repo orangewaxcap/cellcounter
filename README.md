@@ -1,3 +1,4 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/orangewaxcap/cellcounter/master?urlpath=%2Fvoila%2Frender%2Fcellcounterinterface.ipynb)
 # cellcounter
 A human-in-the-loop tool to identify cells in microscope images. Cell coordinates can be downloaded as an XML file compatible with ImageJ's CellCounter plugin.
 
