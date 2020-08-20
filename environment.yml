@@ -1,0 +1,12 @@
+name: cellcountenv
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - ipywidgets
+  - scikit-image
+  - numpy
+  - matplotlib
+  - voila
+  - jupyterlab
