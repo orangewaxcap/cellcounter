@@ -8,5 +8,5 @@ dependencies:
   - scikit-image=0.17.2
   - numpy=1.19.1
   - matplotlib=3.3.1
-  - voila=0.1.21
+  - voila
   - jupyterlab=2.2.5
