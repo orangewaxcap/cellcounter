@@ -1,5 +1,4 @@
-// [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/orangewaxcap/cellcounter/master?urlpath=%2Fvoila%2Frender%2Fcellcounterinterface.ipynb)
-
+<!-- [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/orangewaxcap/cellcounter/master?urlpath=%2Fvoila%2Frender%2Fcellcounterinterface.ipynb) -->
 # cellcounter
 ## Note: no longer works for some reason. Will fix when I get around to it, or create a new version.
 A human-in-the-loop tool to identify cells in microscope images. Cell coordinates can be downloaded as an XML file compatible with ImageJ's CellCounter plugin.
